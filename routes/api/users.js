@@ -3,19 +3,15 @@ const router = express.Router();
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../../models/User');
 const keys = require('../../config/keys');
 const passport = require('passport');
+const mongoose = require('mongoose');
+
+const User = require('../../models/User');
 
 // Load Input Validation
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
-
-// @route   GET api/users/test
-// @desc    Tests users route
-// @access  Public
-
-router.get('/test', (req, res) => res.send(JSON.stringify({msg: "users works"})));
 
 // @route   POST api/users/register
 // @desc    Register users
@@ -98,7 +94,7 @@ router.post('/login', (req, res) => {
                         jwt.sign(
                             payload,
                             keys.secretOrKey,
-                            { expiresIn: 3600 },
+                            { expiresIn: 216000 },
                             (err, token) => {
                                 res.json({
                                     success: true,
