@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
     "start": "node --use_strict server.js",
-    "server": "nodemon --use_strict server.js"
+    "server": "nodemon --use_strict server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run start\" \"npm run client\""
+
   },
   "author": "AlexB <albataev@gmail.com>",
   "license": "ISC",
