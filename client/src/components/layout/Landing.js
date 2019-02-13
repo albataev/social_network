@@ -1,6 +1,16 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
+import PropTypes from 'prop-types';
+import { connect} from "react-redux";
 
 class Landing extends Component {
+
+  componentDidMount() {
+    if(this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
+
   render() {
     return (
       <div className="landing">
@@ -10,11 +20,15 @@ class Landing extends Component {
               <div className="col-md-12 text-center">
                 <h1 className="display-3 mb-4">Developer Connector
                 </h1>
-                <p className="lead"> Create a developer profile/portfolio, share posts and get help from other
-                  developers</p>
+                <p className="lead">
+                  Создай свой профиль разработчика,
+                  <br/> размести портфолио,
+                  <br/> решай проблемы с другими участниками
+                  <br/> Покажи свои достижения рекрутеру
+                  </p>
                 <hr/>
-                <a href="register.html" className="btn btn-lg btn-info mr-2">Sign Up</a>
-                <a href="login.html" className="btn btn-lg btn-light">Login</a>
+                <Link to="/register" className="btn btn-lg btn-info mr-2">Зарегистрироваться</Link>
+                <Link to="/login" className="btn btn-lg btn-light">Войти</Link>
               </div>
             </div>
           </div>
@@ -24,4 +38,17 @@ class Landing extends Component {
   }
 }
 
-export default Landing;
+Landing.proTypes = {
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+// to get access to redux auth state in our component:
+const mapStateToProps = (state) => ({
+  // this comes from the root reducer:
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(mapStateToProps)(Landing);
+
