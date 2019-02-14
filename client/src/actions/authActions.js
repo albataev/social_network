@@ -34,7 +34,7 @@ export const loginUser =
     dispatch => {
       axios.post('/api/users/login', userData)
         .then(res => {
-          console.log('[authActions loginUser] SUCCESS', res.data)
+          console.log('[authActions loginUser] SUCCESS', res.data);
           // save to LocalStorage
           const { token } = res.data;
           // set token to ls

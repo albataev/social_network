@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import classnames from 'classnames';
 import { loginUser } from "../../actions/authActions";
+import TextFieldGroup from '../../components/common/TextFieldGroup';
 
 class Login extends Component {
   state = {
@@ -54,35 +54,23 @@ class Login extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Вход</h1>
               <p className="lead text-center">Войти на DevConnector</p>
-              <form action="dashboard.html">
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className={classnames('form-control form-control-lg', {
-                      'is-invalid': errors.email
-                    })}
-                    placeholder="Email"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                    required
-                  />
-                  <div className="invalid-feedback">{errors.email}</div>
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className={classnames('form-control form-control-lg', {
-                      'is-invalid': errors.password
-                    })}
-                    placeholder="Пароль"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                    required
-                  />
-                  <div className="invalid-feedback">{errors.password}</div>
-                </div>
+              <form>
+                <TextFieldGroup
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  onChange={this.onChange}
+                  value={this.state.email}
+                  error={errors.email}
+                />
+                <TextFieldGroup
+                  type="password"
+                  name="password"
+                  placeholder="Пароль"
+                  onChange={this.onChange}
+                  value={this.state.password}
+                  error={errors.password}
+                />
                 <input
                   type="submit"
                   value="Войти"
