@@ -109,24 +109,24 @@ router.post('/',
         // Get fields
         const profileFields = {};
         profileFields.user = req.user.id;
-        if(req.body.handle) profileFields.handle = req.body.handle;
-        if(req.body.company) profileFields.company = req.body.company;
-        if(req.body.website) profileFields.website = req.body.website;
-        if(req.body.location) profileFields.location= req.body.location;
-        if(req.body.bio) profileFields.bio = req.body.bio;
-        if(req.body.status) profileFields.status = req.body.status;
-        if(req.body.githubusername) profileFields.githubusername = req.body.githubusername;
+        if(req.body.handle !== undefined) profileFields.handle = req.body.handle;
+        if(req.body.company !== undefined) profileFields.company = req.body.company;
+        if(req.body.website !== undefined) profileFields.website = req.body.website;
+        if(req.body.location !== undefined) profileFields.location= req.body.location;
+        if(req.body.bio !== undefined) profileFields.bio = req.body.bio;
+        if(req.body.status !== undefined) profileFields.status = req.body.status;
+        if(req.body.githubusername !== undefined) profileFields.githubusername = req.body.githubusername;
         // Skills split into array
         if(typeof req.body.skills !== 'undefined') {
             profileFields.skills = req.body.skills.split(',')
         }
         // Fill dictionary Social with checking
         profileFields.social = {};
-        if(req.body.twitter) profileFields.social.twitter = req.body.twitter;
-        if(req.body.facebook) profileFields.social.facebook = req.body.facebook;
-        if(req.body.youtube) profileFields.social.youtube = req.body.youtube;
-        if(req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
-        if(req.body.instagram) profileFields.social.instagram = req.body.instagram;
+        if(req.body.twitter !== undefined) profileFields.social.twitter = req.body.twitter;
+        if(req.body.facebook !== undefined) profileFields.social.facebook = req.body.facebook;
+        if(req.body.youtube !== undefined) profileFields.social.youtube = req.body.youtube;
+        if(req.body.linkedin !== undefined) profileFields.social.linkedin = req.body.linkedin;
+        if(req.body.instagram !== undefined) profileFields.social.instagram = req.body.instagram;
 
 
         Profile.findOne({ user: req.user.id })
@@ -342,14 +342,14 @@ router.delete(
                         console.log('[DELETE api/profile/education/:edu_id]', err.message);
                         res.status(404).json({
                             errorsavingprofile: 'Error saving profile after deletion education',
-                            'Error saving on DELETE api/profile/education/:edu_id': err.message })
+                            errordescription: err.message })
                     })
             })
             .catch(err => {
                 console.log('[DELETE api/profile/education/:edu_id]', err.message);
                 res.status(404).json({
-                    noprofilefound: 'No profile found',
-                    'Error in finding profile DELETE api/profile/education/:edu_id': err.message })
+                  noprofilefound: 'No profile found',
+                  errordescription: err.message })
             })
     });
 

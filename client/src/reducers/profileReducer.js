@@ -1,4 +1,11 @@
-import {CLEAR_CURRENT_PROFILE, GET_PROFILE, PROFILE_LOADING} from "../actions/types";
+import {
+  CLEAR_CURRENT_PROFILE,
+  GET_PROFILE,
+  PROFILE_LOADING,
+  ADD_EXPERIENCE,
+  ADD_EDUCATION
+}
+  from "../actions/types";
 
 const initialState = {
   profile: null,
@@ -21,7 +28,22 @@ export default function (state = initialState, action) {
         profile: action.payload,
         loading: false
       };
-      case CLEAR_CURRENT_PROFILE:
+    case ADD_EXPERIENCE:
+      console.log('[profileReducer ADD_EXPERIENCE fired]');
+      return {
+        ...state,
+        profile: action.payload,
+        loading: false
+
+      };
+      case ADD_EDUCATION:
+      console.log('[profileReducer ADD_EDUCATION fired]');
+      return {
+        ...state,
+        profile: action.payload,
+        loading: false
+      };
+    case CLEAR_CURRENT_PROFILE:
       console.log('[profileReducer CLEAR_CURRENT_PROFILE fired]');
       return {
         ...state,
