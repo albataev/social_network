@@ -1,14 +1,14 @@
 import axios from 'axios';
 
 import {
-    GET_PROFILE,
-    PROFILE_LOADING,
-    CLEAR_CURRENT_PROFILE,
-    GET_ERRORS,
-    SET_CURRENT_USER,
-    ADD_EXPERIENCE,
-    ADD_EDUCATION
-  }
+  GET_PROFILE,
+  PROFILE_LOADING,
+  CLEAR_CURRENT_PROFILE,
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  ADD_EXPERIENCE,
+  ADD_EDUCATION, GET_PROFILES
+}
   from "./types";
 
 export const getCurrentProfile = () => dispatch => {
@@ -23,6 +23,27 @@ export const getCurrentProfile = () => dispatch => {
     })
     .catch(err => {
       console.log('[profileActions getCurrentProfile] ERROR', err.response.data);
+      dispatch({
+        type: GET_PROFILE,
+        payload: {}
+      })
+    })
+};
+
+// get Profile By Handle
+
+export const getProfileByHandle = (handle) => dispatch => {
+  dispatch(setProfileLoading());
+  axios.get(`/api/profile/handle/${handle}`)
+    .then(res => {
+      console.log('[profileActions getProfileByHandle] SUCCESS', res.data);
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    })
+    .catch(err => {
+      console.log('[profileActions getProfileByHandle] ERROR', err.response.data);
       dispatch({
         type: GET_PROFILE,
         payload: {}
@@ -155,6 +176,27 @@ export const deleteEducation = (id) => dispatch => {
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
+      })
+    })
+};
+
+// Get all profiles
+export const getProfiles = () => dispatch => {
+  dispatch(setProfileLoading());
+  axios.get("/api/profile/all")
+    .then(res => {
+      console.log('[profileActions getProfiles] SUCCESS', res.data);
+      // fetch updated profile
+      dispatch({
+        type: GET_PROFILES,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      console.log('[profileActions getProfiles] ERROR', err.response.data);
+      dispatch({
+        type: GET_PROFILES,
+        payload: null
       })
     })
 };

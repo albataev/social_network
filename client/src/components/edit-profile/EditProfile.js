@@ -35,7 +35,6 @@ class CreateProfile extends Component {
 
   componentWillReceiveProps(nextProps, nextContext) {
     if (!isEmpty(nextProps.errors)) {
-      // console.log('nextProps.errors', nextProps.errors);
       this.setState({errors: nextProps.errors});
     }
     // do not replace values in fields with errors initially fetched values
@@ -44,7 +43,6 @@ class CreateProfile extends Component {
       this.setState({ initProfileFetched: true });
       const profile = nextProps.profile.profile;
       //Skills array back to CSV
-      // console.log('profile.skills', profile.skills);
       profile.skills = (typeof (profile.skills) === 'object') ? profile.skills.join(',') : '';
       // if profile field does not exist - make it empty
       // console.log('profile: ', profile);

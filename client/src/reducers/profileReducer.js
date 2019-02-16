@@ -1,6 +1,7 @@
 import {
   CLEAR_CURRENT_PROFILE,
   GET_PROFILE,
+  GET_PROFILES,
   PROFILE_LOADING,
   ADD_EXPERIENCE,
   ADD_EDUCATION
@@ -26,6 +27,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: action.payload,
+        loading: false
+      };
+    case GET_PROFILES:
+      console.log('[profileReducer GET_PROFILES fired]', action.payload);
+      return {
+        ...state,
+        profiles: action.payload,
         loading: false
       };
     case ADD_EXPERIENCE:

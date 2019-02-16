@@ -125,7 +125,7 @@ class AddEducation extends Component {
                     onChange={this.onCheck}
                   />
                   <label htmlFor="current" className="form-check-label">
-                    Сейчас работаю
+                    Сейчас учусь
                   </label>
                 </div>
                 <TextAreaFieldGroup
