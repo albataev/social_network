@@ -6,8 +6,8 @@ import {
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
   SET_CURRENT_USER,
-  ADD_EXPERIENCE,
-  ADD_EDUCATION, GET_PROFILES
+  GET_PROFILES,
+  CLEAR_ERRORS
 }
   from "./types";
 
@@ -57,8 +57,7 @@ export const createProfile = (profileData, history) => dispatch => {
     .then(res => {
       console.log('[profileActions createProfile] SUCCESS', res.data);
       dispatch({
-        type: GET_ERRORS,
-        payload: {}
+        type: CLEAR_ERRORS
       });
       history.push('/dashboard')
     })
@@ -92,21 +91,10 @@ export const deleteAccount = () => dispatch => {
 };
 
 export const addExperience = (expData, history) => dispatch => {
+  dispatch(clearErrors());
   axios.post('/api/profile/experience', expData)
     .then(res => {
       console.log('[profileActions addExperience] SUCCESS', res.data);
-      // no need to fire reducer - we are not updating state here
-      // dispatch({
-      //   type: ADD_EXPERIENCE,
-      //   payload: res.data
-      //   });
-
-      // reset errors
-      dispatch({
-          type: GET_ERRORS,
-          payload:{}
-        });
-
       history.push('/dashboard')
     })
     .catch(err => {
@@ -140,14 +128,10 @@ export const deleteExperience = (id) => dispatch => {
 };
 
 export const addEducation = (eduData, history) => dispatch => {
+  dispatch(clearErrors());
   axios.post('/api/profile/education', eduData)
     .then(res => {
       console.log('[profileActions addEducation] SUCCESS', res.data);
-      // reset errors
-      dispatch({
-        type: GET_ERRORS,
-        payload:{}
-      });
       history.push('/dashboard')
     })
     .catch(err => {
@@ -211,5 +195,12 @@ export const setProfileLoading = () => {
 export const clearCurrentProfile = () => {
   return {
     type: CLEAR_CURRENT_PROFILE
+  }
+};
+
+export const clearErrors = () => {
+  console.log('[profileActions clearErrors] Fired');
+  return {
+    type: CLEAR_ERRORS
   }
 };

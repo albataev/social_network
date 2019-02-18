@@ -52,13 +52,13 @@ router.get('/:id', (req, res) => {
 router.post('/',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
+      const { errors, isValid } = validatePostAndCommentInput(req.body);
 
-    const { errors, isValid } = validatePostAndCommentInput(req.body);
-
-    if(!isValid) {
+      if(!isValid) {
+        console.log('[POST api/posts/] Error !isValid: ', errors);
         return res.status(400).json(errors)
-    }
-    const newPost = new Post({
+      }
+      const newPost = new Post({
         // some fixes
         text: req.body.text,
         name: req.user.name,
@@ -71,11 +71,11 @@ router.post('/',
         // user: req.user.id
         });
         newPost.save()
-            .then(post => res.json(post))
+            .then(post => res.json(post)
+            )
             .catch(err => {
                 console.log('[POST api/posts/]', err.message);
-                res.status(404).json({
-                    'Error in POST api/posts/': err.message })
+                res.status(404).json({errors})
             });
     });
 
